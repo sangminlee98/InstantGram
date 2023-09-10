@@ -27,24 +27,14 @@ export default {
       title: 'Following',
       name: 'following',
       type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [{type: 'user'}],
-        },
-      ],
+      of: [{type: 'user'}],
       validation: (Rule) => Rule.unique(),
     },
     {
       title: 'Follower',
       name: 'follower',
       type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [{type: 'user'}],
-        },
-      ],
+      of: [{type: 'user'}],
       validation: (Rule) => Rule.unique(),
     },
     {
