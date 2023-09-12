@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import AuthContext from "@/components/context/AuthContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={openSans.className}>
       <body className="w-full max-w-screen-xl h-screen min-h-screen mx-auto overflow-auto">
-        <Header />
-        <main>{children}</main>
+        <AuthContext>
+          <Header />
+          <main>{children}</main>
+        </AuthContext>
       </body>
     </html>
   );

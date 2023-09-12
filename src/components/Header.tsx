@@ -10,6 +10,7 @@ import SearchFillIcon from "./ui/icons/SearchFillIcon";
 import NewIcon from "./ui/icons/NewIcon";
 import NewFillIcon from "./ui/icons/NewFillIcon";
 import ColorButton from "./ui/ColorButton";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const menu = [
   {
@@ -31,6 +32,7 @@ const menu = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   return (
     <header className="flex justify-between items-center bg-white p-4 sticky top-0 border-b z-10">
@@ -46,7 +48,12 @@ export default function Header() {
               </Link>
             </li>
           ))}
-          <ColorButton text="Sign In" onClick={() => {}} />
+
+          {session ? (
+            <ColorButton text="Sign Out" onClick={signOut} />
+          ) : (
+            <ColorButton text="Sign In" onClick={signIn} />
+          )}
         </ul>
       </nav>
     </header>
