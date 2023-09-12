@@ -3,46 +3,52 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineHome } from "react-icons/ai";
-import { AiFillHome } from "react-icons/ai";
-import { BsPlusSquare } from "react-icons/bs";
-import { BsPlusSquareFill } from "react-icons/bs";
-import { RiSearchLine } from "react-icons/ri";
-import { RiSearchFill } from "react-icons/ri";
+import HomeIcon from "./ui/icons/HomeIcon";
+import HomeFillIcon from "./ui/icons/HomeFillIcon";
+import SearchIcon from "./ui/icons/SearchIcon";
+import SearchFillIcon from "./ui/icons/SearchFillIcon";
+import NewIcon from "./ui/icons/NewIcon";
+import NewFillIcon from "./ui/icons/NewFillIcon";
+import ColorButton from "./ui/ColorButton";
+
+const menu = [
+  {
+    href: "/",
+    icon: <HomeIcon />,
+    clickedIcon: <HomeFillIcon />,
+  },
+  {
+    href: "/search",
+    icon: <SearchIcon />,
+    clickedIcon: <SearchFillIcon />,
+  },
+  {
+    href: "/new",
+    icon: <NewIcon />,
+    clickedIcon: <NewFillIcon />,
+  },
+];
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center bg-white p-8 sticky top-0 border-b z-10">
-      <h1 className="text-4xl font-bold">Instantgram</h1>
-      <span className="flex gap-4 items-center">
-        <Link href="/">
-          {pathname === "/" ? (
-            <AiFillHome size={"2rem"} />
-          ) : (
-            <AiOutlineHome size={"2rem"} />
-          )}
-        </Link>
-        <Link href="/search">
-          {pathname === "/search" ? (
-            <RiSearchFill size={"2rem"} />
-          ) : (
-            <RiSearchLine size={"2rem"} />
-          )}
-        </Link>
-        <Link href="/new">
-          {pathname === "/new" ? (
-            <BsPlusSquareFill size={"2rem"} />
-          ) : (
-            <BsPlusSquare size={"2rem"} />
-          )}
-        </Link>
-        <div className="rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-[0.15rem]">
-          <button className="bg-white rounded-sm text-base p-[0.3rem] hover:opacity-90 transition-opacity">
-            Sign In
-          </button>
-        </div>
-      </span>
+    <header className="flex justify-between items-center bg-white p-4 sticky top-0 border-b z-10">
+      <Link href="/">
+        <h1 className="text-3xl font-bold">Instantgram</h1>
+      </Link>
+      <nav>
+        <ul className="flex gap-4 items-center p-4">
+          {menu.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href}>
+                {pathname === item.href ? item.clickedIcon : item.icon}
+              </Link>
+            </li>
+          ))}
+          <ColorButton text="Sign In" onClick={() => {}} />
+        </ul>
+      </nav>
     </header>
   );
 }

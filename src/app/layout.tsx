@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={openSans.className}>
-      <body className="w-full max-w-screen-2xl h-screen min-h-screen mx-auto">
+      <body className="w-full max-w-screen-xl h-screen min-h-screen mx-auto overflow-auto">
         <Header />
         <main>{children}</main>
       </body>
