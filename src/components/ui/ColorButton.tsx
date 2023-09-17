@@ -1,6 +1,6 @@
 type ColorButtonProps = {
   text: string;
-  size: "samll" | "big";
+  size?: "samll" | "big";
   onClick: () => void;
 };
 
