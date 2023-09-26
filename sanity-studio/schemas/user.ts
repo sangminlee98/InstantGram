@@ -29,14 +29,14 @@ const user = defineType({
       title: 'Following',
       name: 'following',
       type: 'array',
-      of: [defineArrayMember({type: 'user'})],
+      of: [defineArrayMember({type: 'reference', to: [{type: 'user'}]})],
       validation: (Rule) => Rule.unique(),
     }),
     defineField({
       title: 'Follower',
       name: 'follower',
       type: 'array',
-      of: [defineArrayMember({type: 'user'})],
+      of: [defineArrayMember({type: 'reference', to: [{type: 'user'}]})],
       validation: (Rule) => Rule.unique(),
     }),
     defineField({
