@@ -36,35 +36,39 @@ export default function Header() {
   const user = session?.user;
 
   return (
-    <header className="flex justify-between items-center bg-white p-4 sticky top-0 border-b z-10">
-      <Link href="/">
-        <h1 className="text-3xl font-bold">Instantgram</h1>
-      </Link>
-      <nav>
-        <ul className="flex gap-4 items-center p-4">
-          {menu.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href}>
-                {pathname === item.href ? item.clickedIcon : item.icon}
-              </Link>
-            </li>
-          ))}
-          {user && (
-            <li>
-              <Link href={`/user/${user.username}`}>
-                <Avatar image={user.image} size="small" highlight />
-              </Link>
-            </li>
-          )}
-          <li>
-            {session ? (
-              <ColorButton text="Sign Out" onClick={signOut} />
-            ) : (
-              <ColorButton text="Sign In" onClick={signIn} />
-            )}
-          </li>
-        </ul>
-      </nav>
+    <header className="sticky top-0 bg-white z-10 border-b">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="flex justify-between items-center px-6">
+          <Link href="/">
+            <h1 className="text-3xl font-bold">Instantgram</h1>
+          </Link>
+          <nav>
+            <ul className="flex gap-4 items-center p-4">
+              {menu.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>
+                    {pathname === item.href ? item.clickedIcon : item.icon}
+                  </Link>
+                </li>
+              ))}
+              {user && (
+                <li>
+                  <Link href={`/user/${user.username}`}>
+                    <Avatar image={user.image} size="small" highlight />
+                  </Link>
+                </li>
+              )}
+              <li>
+                {session ? (
+                  <ColorButton text="Sign Out" onClick={signOut} />
+                ) : (
+                  <ColorButton text="Sign In" onClick={signIn} />
+                )}
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }
