@@ -1,8 +1,8 @@
 import Avatar from "./Avatar";
-import { User } from "@/model/user";
+import { AuthUser } from "@/model/user";
 
 type SideBarProps = {
-  user: User;
+  user: AuthUser;
 };
 
 export default function SideBar({
