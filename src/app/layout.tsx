@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className="w-full bg-neutral-50 overflow-auto">
         <AuthContext>
           <Header />
-          <main className="w-full flex justify-center">
+          <main className="w-full flex justify-center max-w-screen-xl mx-auto">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>
