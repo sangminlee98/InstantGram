@@ -8,27 +8,26 @@ import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
 import { SimplePost } from "@/model/post";
 import { useSession } from "next-auth/react";
 import usePosts from "@/hooks/usePosts";
+import useMe from "@/hooks/useMe";
 
 type ActionBarProps = {
   post: SimplePost;
 };
 
 export default function ActionBar({ post }: ActionBarProps) {
-  const { likes, username, text, createdAt } = post;
+  const { id, likes, username, text, createdAt } = post;
 
-  const { data: session } = useSession();
-  const user = session?.user;
-
-  const liked = user ? likes.includes(user.username) : false;
-
-  const [bookmarked, setBookmarked] = useState(false);
-
+  const { user, setBookmark } = useMe();
   const { setLike } = usePosts();
 
+  const liked = user ? likes.includes(user.username) : false;
+  const bookmarked = user?.bookmarks.includes(id) ?? false;
+
   const handleLike = (like: boolean) => {
-    if (user) {
-      setLike(post, user.username, like);
-    }
+    user && setLike(post, user.username, like);
+  };
+  const handleBookmark = (bookmark: boolean) => {
+    user && setBookmark(id, bookmark);
   };
 
   return (
@@ -42,7 +41,7 @@ export default function ActionBar({ post }: ActionBarProps) {
         />
         <ToggleButton
           toggled={bookmarked}
-          onToggle={setBookmarked}
+          onToggle={handleBookmark}
           onIcon={<BookmarkFillIcon />}
           offIcon={<BookmarkIcon />}
         />
