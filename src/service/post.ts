@@ -2,15 +2,15 @@ import { SimplePost } from "@/model/post";
 import { client, urlFor } from "./sanity";
 
 const simplePostProjection = `
-  ...,
-  "username": author -> username,
-  "userImage": author -> image,
-  "image": photo,
-  "likes": likes[] -> username,
-  "text": comments[0].comment,
-  "comments": count(comments),
-  "id": _id,
-  "createdAt": _createdAt
+    ...,
+    "username": author->username,
+    "userImage": author->image,
+    "image": photo,
+    "likes": likes[]->username,
+    "text": comments[0].comment,
+    "comments": count(comments),
+    "id":_id,
+    "createdAt":_createdAt
 `;
 
 export async function getFollowingPostsOf(username: string) {
@@ -64,7 +64,7 @@ export async function getLikedPostsOf(username: string) {
     )
     .then(mapPosts);
 }
-export async function getSavedPostOf(username: string) {
+export async function getSavedPostsOf(username: string) {
   return client
     .fetch(
       `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].bookmarks[]._ref]

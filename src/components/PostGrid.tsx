@@ -9,11 +9,9 @@ type PostGridProps = {
 };
 
 export default function PostGrid({ username, query }: PostGridProps) {
-  const {
-    data: posts,
-    isLoading,
-    error,
-  } = useSWR<SimplePost[]>(`/api/users/${username}/${query}`);
+  const { data: posts, isLoading } = useSWR<SimplePost[]>(
+    `/api/users/${username}/${query}`
+  );
   return (
     <div className="w-full text-center">
       {isLoading && <GridSpinner />}
