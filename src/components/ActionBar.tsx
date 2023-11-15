@@ -5,17 +5,23 @@ import { useState } from "react";
 import ToggleButton from "./ui/ToggleButton";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
-import { SimplePost } from "@/model/post";
+import { Comment, SimplePost } from "@/model/post";
 import { useSession } from "next-auth/react";
 import usePosts from "@/hooks/usePosts";
 import useMe from "@/hooks/useMe";
+import CommentForm from "./CommentForm";
 
 type ActionBarProps = {
   post: SimplePost;
   children?: React.ReactNode;
+  onComment: (comment: Comment) => void;
 };
 
-export default function ActionBar({ post, children }: ActionBarProps) {
+export default function ActionBar({
+  post,
+  children,
+  onComment,
+}: ActionBarProps) {
   const { id, likes, createdAt } = post;
 
   const { user, setBookmark } = useMe();
@@ -29,6 +35,10 @@ export default function ActionBar({ post, children }: ActionBarProps) {
   };
   const handleBookmark = (bookmark: boolean) => {
     user && setBookmark(id, bookmark);
+  };
+
+  const handleComment = (comment: string) => {
+    user && onComment({ comment, username: user.username, image: user.image });
   };
 
   return (
@@ -56,6 +66,7 @@ export default function ActionBar({ post, children }: ActionBarProps) {
           {parseDate(createdAt)}
         </p>
       </div>
+      <CommentForm onPostComment={handleComment} />
     </>
   );
 }
