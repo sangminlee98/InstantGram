@@ -26,3 +26,14 @@ export default function ColorButton({
     </div>
   );
 }
+
+class Foo {
+  common;
+  foo;
+  constructor() {
+    this.common = "123";
+    this.foo = "foo";
+  }
+}
+
+const foo = new Foo();
