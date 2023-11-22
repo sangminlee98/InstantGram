@@ -15,17 +15,19 @@ type ActionBarProps = {
   post: SimplePost;
   children?: React.ReactNode;
   onComment: (comment: Comment) => void;
+  cacheKey: string;
 };
 
 export default function ActionBar({
   post,
   children,
   onComment,
+  cacheKey,
 }: ActionBarProps) {
   const { id, likes, createdAt } = post;
 
   const { user, setBookmark } = useMe();
-  const { setLike } = usePosts();
+  const { setLike } = usePosts(cacheKey);
 
   const liked = user ? likes.includes(user.username) : false;
   const bookmarked = user?.bookmarks.includes(id) ?? false;
