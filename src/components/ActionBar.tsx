@@ -10,24 +10,24 @@ import { useSession } from "next-auth/react";
 import usePosts from "@/hooks/usePosts";
 import useMe from "@/hooks/useMe";
 import CommentForm from "./CommentForm";
+import { useCacheKeys } from "./context/CacheKeysContext";
 
 type ActionBarProps = {
   post: SimplePost;
   children?: React.ReactNode;
   onComment: (comment: Comment) => void;
-  cacheKey: string;
 };
 
 export default function ActionBar({
   post,
   children,
   onComment,
-  cacheKey,
 }: ActionBarProps) {
+  const cacheKeys = useCacheKeys();
   const { id, likes, createdAt } = post;
 
   const { user, setBookmark } = useMe();
-  const { setLike } = usePosts(cacheKey);
+  const { setLike } = usePosts(cacheKeys.postsKey);
 
   const liked = user ? likes.includes(user.username) : false;
   const bookmarked = user?.bookmarks.includes(id) ?? false;
